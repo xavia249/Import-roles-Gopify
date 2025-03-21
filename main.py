@@ -1,15 +1,10 @@
-from lib2to3.pgen2 import driver
-from selenium import webdriver
-from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import NoSuchElementException
 chrome_options = Options()
 chrome_options.add_argument("--disable-notifications")
 chrome_options.add_argument("--disable-infobars")
@@ -24,26 +19,17 @@ password_input = driver.find_element(By.NAME, "password")
 password_input.send_keys("admin#@123")
 driver.find_element(By.XPATH, "//button[contains(text(), 'Đăng nhập')]").click()
 time.sleep(6)
-# driver.find_element(By.CLASS_NAME, "hide-menu").click()
 setup_button = driver.find_element(By.ID, "setup-menu-item")
 driver.execute_script("arguments[0].scrollIntoView();", setup_button)
 time.sleep(2)
 setup_button.click()
 driver.find_element(By.ID, "setup-menu-item").click()
 menu_vi_tri = driver.find_element(By.CLASS_NAME, "menu-item-roles")
-
 actions = ActionChains(driver)
 actions.move_to_element(menu_vi_tri).click().perform()
 driver.find_element(By.CLASS_NAME, "menu-item-roles").click()
 time.sleep(4)
 
-test = ['bulk_pdf_exporter_view',
-    'contracts_view_own', 'contracts_view', 'contracts_create', 'contracts_edit', 'contracts_delete', 'contracts_view_all_templates',
-    'credit_notes_view_own', 'credit_notes_view', 'credit_notes_create', 'credit_notes_edit', 'credit_notes_delete',
-    'customers_view_own', 'customers_view', 'customers_create', 'customers_edit', 'customers_delete',
-    'email_templates_view', 'email_templates_edit'
-        ]
-# row_bulk_pdf_exporter = driver.find_element(By.XPATH, "//tr[@data-name='bulk_pdf_exporter']")
 All = [
     'bulk_pdf_exporter_view',
     'contracts_view_own', 'contracts_view', 'contracts_create', 'contracts_edit', 'contracts_delete', 'contracts_view_all_templates',
@@ -669,20 +655,14 @@ Customer_Support_Staff =[
      'attendance_management_view',
      'leave_management_view'
 ]
-# checkbox = driver.find_element(By.ID, 'bulk_pdf_exporter_view')
-# # label = driver.find_element(By.XPATH, "//label[@for='bulk_pdf_exporter_view']")
-# if not checkbox.is_selected():
-#     checkbox.click()
 driver.find_element(By.XPATH, "//*[@id='wrapper']/div/div/div/div[1]/a/i").click()
-driver.find_element(By.ID, "name").send_keys("Warehouse Staff")
-for permission in Warehouse_Staff:
+driver.find_element(By.ID, "name").send_keys("Customer Support Staff")
+for permission in Customer_Support_Staff:
     try:
         checkbox = driver.find_element(By.ID, permission)
         if not checkbox.is_selected():
             checkbox.click()
             print(f"Đã chọn: {permission}")
-        else:
-            print(f"Đã được chọn trước: {permission}")
     except Exception as e:
         print(f"Lỗi khi xử lý {permission}: {e}")
 driver.find_element(By.XPATH, "//button[contains(text(), 'Lưu lại')]").click()
